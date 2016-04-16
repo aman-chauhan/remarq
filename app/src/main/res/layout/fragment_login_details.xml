@@ -5,7 +5,7 @@
     tools:context="com.mobile.remarq.LoginDetails"
     android:orientation="vertical"
     android:gravity="center_vertical|center_horizontal"
-    android:background="@color/windowBackground">
+    android:background="#FFFFFF">
 
     <ImageButton
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:id="@+id/applogo"
         android:layout_gravity="center"
         android:src="@drawable/ic_book_24dp"
-        android:background="@color/windowBackground"
+        android:background="#FFFFFF"
         android:tint="@color/colorPrimary"
         android:contentDescription="Logo" />
 

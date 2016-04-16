@@ -14,9 +14,18 @@
         android:background="@color/colorPrimary"
         android:elevation="10dp"/>
 
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frames"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/check"
+        android:layout_gravity="center_horizontal" />
+
+
+    <!--<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frames"/>-->
 
 </LinearLayout>
