@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mobile.remarq.FollowStudents"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary"
+        android:gravity="bottom"
+        android:textColor="#FFFFFF"
+        android:text="Students You Follow"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/studentsIfollowlist"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>
