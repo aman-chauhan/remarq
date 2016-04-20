@@ -124,6 +124,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             obj.setArguments(bundle);
             ft.replace(R.id.frames, obj);
         }
+        else if (id == R.id.followerstudentsicon)
+        {
+            FollowingStudents obj=new FollowingStudents();
+            obj.setArguments(bundle);
+            ft.replace(R.id.frames, obj);
+        }
         else if (id == R.id.followingcoursesicon)
         {
             ft.replace(R.id.frames, new Stub());

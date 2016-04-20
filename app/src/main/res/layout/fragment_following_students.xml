@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobile.remarq.FollowStudents"
+    tools:context="com.mobile.remarq.FollowingStudents"
     android:orientation="vertical">
 
     <TextView
@@ -11,7 +11,7 @@
         android:background="#880000"
         android:gravity="bottom"
         android:textColor="#FFFFFF"
-        android:text="Students You Follow"
+        android:text="Students Following You"
         android:textStyle="bold"
         android:textSize="30sp"
         android:paddingLeft="10dp"
@@ -20,7 +20,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/studentsIfollowlist"
+        android:id="@+id/studentsfollowMelist"
         android:scrollbars="vertical"
         />
 
