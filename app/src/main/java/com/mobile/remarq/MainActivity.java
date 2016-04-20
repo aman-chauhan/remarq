@@ -1,5 +1,6 @@
 package com.mobile.remarq;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
+    Student auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         Bundle extras=getIntent().getExtras();
-        Student auth=(Student)extras.getSerializable("auth");
+        auth=(Student)extras.getSerializable("auth");
 
 
         FloatingActionButton search = (FloatingActionButton) findViewById(R.id.search);
@@ -104,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("auth",auth);
         FragmentTransaction ft=getFragmentManager().beginTransaction();
         if (id == R.id.timelineicon)
         {
@@ -115,7 +120,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.followingstudentsicon)
         {
-            ft.replace(R.id.frames, new FollowStudents());
+            FollowStudents obj=new FollowStudents();
+            obj.setArguments(bundle);
+            ft.replace(R.id.frames, obj);
         }
         else if (id == R.id.followingcoursesicon)
         {
