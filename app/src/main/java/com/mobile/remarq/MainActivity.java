@@ -132,7 +132,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.followingcoursesicon)
         {
-            ft.replace(R.id.frames, new Stub());
+            FollowCourse obj=new FollowCourse();
+            obj.setArguments(bundle);
+            ft.replace(R.id.frames, obj);
         }
         ft.commit();
 

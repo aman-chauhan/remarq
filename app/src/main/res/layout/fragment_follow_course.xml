@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mobile.remarq.FollowCourse"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#880000"
+        android:gravity="bottom"
+        android:textColor="#FFFFFF"
+        android:text="Courses You Follow"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/coursesIfollowlist"
+        android:scrollbars="vertical"
+        />
+
+</LinearLayout>
