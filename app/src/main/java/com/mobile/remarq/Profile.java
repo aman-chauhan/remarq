@@ -34,7 +34,7 @@ public class Profile extends Fragment{
         super.onCreate(savedInstanceState);
 
 
-    }/*
+    }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
         adapter.addFragment(new Stub(), "Notes");
@@ -62,12 +62,12 @@ public class Profile extends Fragment{
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
+        public ViewPagerAdapter(android.support.v4.app.FragmentManager manager) {
             super(manager);
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public android.support.v4.app.Fragment getItem(int position) {
             return mFragmentList.get(position);
         }
 
@@ -92,7 +92,7 @@ public class Profile extends Fragment{
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }*/
+    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

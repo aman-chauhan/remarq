@@ -1,11 +1,14 @@
 package com.mobile.remarq;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,12 +18,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     Student auth;
+    Fragment frag=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,13 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         FloatingActionButton search = (FloatingActionButton) findViewById(R.id.search);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(getBaseContext(),"Hello!",Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         FloatingActionButton addnote = (FloatingActionButton) findViewById(R.id.addnote);
         addnote.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +67,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fullname.setText(name);
         emailid.setText(auth.getEmail_id());
     }
+public void onSearchClicked(View v){
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    LayoutInflater inflater = this.getLayoutInflater();
+    final View dialogView = inflater.inflate(R.layout.activity_search_dialog, null);
+    builder.setView(dialogView);
+    final EditText edt = (EditText) dialogView.findViewById(R.id.searchText);
+
+    builder.setMessage("Search").setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int whichButton){
+            String searchquery = edt.getText().toString();
+            Toast.makeText(MainActivity.this,searchquery,Toast.LENGTH_SHORT).show();
+            FragmentManager manager = getFragmentManager();
+            FragmentTransaction ft=manager.beginTransaction();
+            SearchFragment s=new SearchFragment();
+            ft.replace(R.id.frames,s,"Search");
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
+    });
+        builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+    AlertDialog b =builder.create();
+    b.show();
+}
 
     @Override
     public void onBackPressed() {
