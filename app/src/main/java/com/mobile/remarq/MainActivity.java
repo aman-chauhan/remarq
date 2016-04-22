@@ -116,7 +116,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.profileicon)
         {
-            ft.replace(R.id.frames, new Stub());
+            Profile obj=new Profile();
+            obj.setArguments(bundle);
+            ft.replace(R.id.frames, obj);
         }
         else if (id == R.id.followingstudentsicon)
         {
