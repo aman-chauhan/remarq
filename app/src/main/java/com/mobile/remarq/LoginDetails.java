@@ -34,6 +34,7 @@ public class LoginDetails extends Fragment
     public EditText password_input;
     private static String TAG = LoginDetails.class.getSimpleName();
     private String url="http://remarq-central.890m.com/pull_student.php";
+    private HashMap<String, String> courseids=new HashMap<>();
 
     public LoginDetails() {
         // Required empty public constructor
@@ -45,6 +46,8 @@ public class LoginDetails extends Fragment
                              Bundle savedInstanceState)
     {
         View v=inflater.inflate(R.layout.fragment_login_details, container, false);
+        courseids=(HashMap<String, String>)getArguments().getSerializable("courseids");
+
         b1=(Button)v.findViewById(R.id.signin);
         b2=(Button)v.findViewById(R.id.signup);
         email_input=(EditText)v.findViewById(R.id.email_input);
@@ -86,6 +89,7 @@ public class LoginDetails extends Fragment
                                         auth.setStudent_id(jsonObject.getInt("studentid"));
                                         Intent i=new Intent(getActivity(), MainActivity.class);
                                         i.putExtra("auth",auth);
+                                        i.putExtra("courseids",courseids);
                                         startActivity(i);
                                     }
                                     else

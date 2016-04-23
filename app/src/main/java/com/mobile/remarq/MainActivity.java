@@ -22,9 +22,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     Student auth;
+    HashMap<String, String> courseids=new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Bundle extras=getIntent().getExtras();
         auth=(Student)extras.getSerializable("auth");
-
+        courseids=(HashMap<String, String>)extras.getSerializable("courseids");
 
         FloatingActionButton search = (FloatingActionButton) findViewById(R.id.search);
 
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("auth",auth);
+                bundle.putSerializable("courseids",courseids);
                 AddNote obj=new AddNote();
                 obj.setArguments(bundle);
                 FragmentTransaction ft=getSupportFragmentManager().beginTransaction();

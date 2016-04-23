@@ -21,7 +21,6 @@ import java.util.List;
 
 public class Profile extends Fragment{
     ImageView profileImage;
-    Fragment f;
     TextView studentName;
     TextView studentEmail;
 

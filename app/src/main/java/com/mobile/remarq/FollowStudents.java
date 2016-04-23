@@ -61,7 +61,7 @@ public class FollowStudents extends Fragment
         RecyclerView.LayoutManager mlayoutmanager=new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(mlayoutmanager);
         recyclerview.setItemAnimator(new DefaultItemAnimator());
-        recyclerview.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        //recyclerview.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerview.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerview, new ClickListener() {
             @Override
             public void onClick(View view, int position)

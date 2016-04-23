@@ -7,14 +7,14 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#880000"
+        android:layout_height="72dp"
+        android:background="@color/colorPrimaryLight"
         android:gravity="bottom"
         android:textColor="#FFFFFF"
         android:text="Students You Follow"
         android:textStyle="bold"
         android:textSize="30sp"
-        android:paddingLeft="10dp"
+        android:paddingLeft="16dp"
         android:layout_marginTop="?attr/actionBarSize"/>
 
     <android.support.v7.widget.RecyclerView
@@ -22,6 +22,6 @@
         android:layout_height="match_parent"
         android:id="@+id/studentsIfollowlist"
         android:scrollbars="vertical"
-        />
+        android:background="@color/colorPrimaryLight"/>
 
 </LinearLayout>
