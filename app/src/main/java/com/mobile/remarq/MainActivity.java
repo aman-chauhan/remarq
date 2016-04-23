@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -149,7 +150,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
         if (id == R.id.timelineicon)
         {
-            ft.replace(R.id.frames, new Stub());
+            TimelineFragment obj=new TimelineFragment();
+            obj.setArguments(bundle);
+            ft.replace(R.id.frames, obj);
         }
         else if (id == R.id.profileicon)
         {
