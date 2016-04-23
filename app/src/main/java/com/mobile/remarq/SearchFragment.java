@@ -1,10 +1,10 @@
 package com.mobile.remarq;
 
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -17,7 +17,7 @@ import java.util.List;
 public class SearchFragment extends Fragment {
     ViewPager viewPager;
     TabLayout tabLayout;
-    android.support.v4.app.Fragment f;
+    //android.support.v4.app.Fragment f;
 
     public SearchFragment() {
         // Required empty public constructor

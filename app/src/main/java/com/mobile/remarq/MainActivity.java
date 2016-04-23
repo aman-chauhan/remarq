@@ -2,12 +2,12 @@ package com.mobile.remarq;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,7 +25,6 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     Student auth;
-    Fragment frag=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,7 +47,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(getBaseContext(),"Hello!",Toast.LENGTH_SHORT).show();
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("auth",auth);
+                AddNote obj=new AddNote();
+                obj.setArguments(bundle);
+                FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frames,obj);
+                ft.commit();
             }
         });
 
@@ -67,34 +72,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fullname.setText(name);
         emailid.setText(auth.getEmail_id());
     }
-public void onSearchClicked(View v){
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    LayoutInflater inflater = this.getLayoutInflater();
-    final View dialogView = inflater.inflate(R.layout.activity_search_dialog, null);
-    builder.setView(dialogView);
-    final EditText edt = (EditText) dialogView.findViewById(R.id.searchText);
+    public void onSearchClicked(View v){
 
-    builder.setMessage("Search").setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int whichButton){
-            String searchquery = edt.getText().toString();
-            Toast.makeText(MainActivity.this,searchquery,Toast.LENGTH_SHORT).show();
-            FragmentManager manager = getFragmentManager();
-            FragmentTransaction ft=manager.beginTransaction();
-            SearchFragment s=new SearchFragment();
-            ft.replace(R.id.frames,s,"Search");
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.commit();
-        }
-    });
-        builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //pass
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.activity_search_dialog, null);
+        builder.setView(dialogView);
+        final EditText edt = (EditText) dialogView.findViewById(R.id.searchText);
+
+        builder.setMessage("Search").setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton){
+                String searchquery = edt.getText().toString();
+                Toast.makeText(MainActivity.this,searchquery,Toast.LENGTH_SHORT).show();
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction ft=manager.beginTransaction();
+                SearchFragment s=new SearchFragment();
+                ft.replace(R.id.frames,s,"Search");
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.commit();
             }
         });
-    AlertDialog b =builder.create();
-    b.show();
-}
+            builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    //pass
+                }
+            });
+        AlertDialog b =builder.create();
+        b.show();
+    }
 
     @Override
     public void onBackPressed() {
@@ -136,7 +142,7 @@ public void onSearchClicked(View v){
         int id = item.getItemId();
         Bundle bundle=new Bundle();
         bundle.putSerializable("auth",auth);
-        FragmentTransaction ft=getFragmentManager().beginTransaction();
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
         if (id == R.id.timelineicon)
         {
             ft.replace(R.id.frames, new Stub());

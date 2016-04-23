@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mobile.remarq.AddNote"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Add Note"
+        android:id="@+id/textView2"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@color/colorPrimaryLight"
+        android:textColor="#FFFFFF"
+        android:textStyle="normal|bold"
+        android:textSize="45sp"
+        android:gravity="center_vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:id="@+id/enterccode"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:id="@+id/enterndate"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/enterntitle"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/enterncontent"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Submit"
+        android:id="@+id/submitthenote"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
