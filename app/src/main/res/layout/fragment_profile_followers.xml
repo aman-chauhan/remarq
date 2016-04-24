@@ -2,13 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobile.remarq.TimelineFragment">
+    tools:context="com.mobile.remarq.ProfileFollowers"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:id="@+id/studentsfollowMelist"
+        android:scrollbars="vertical"
         android:background="@color/colorPrimaryLight"/>
+
 </LinearLayout>

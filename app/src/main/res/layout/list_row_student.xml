@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="8dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
 
-    <android.support.v7.widget.CardView
-        android:layout_height="wrap_content"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    card_view:cardElevation="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        card_view:cardUseCompatPadding="true"
-        android:elevation="100dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_person_black"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground">
 
-            <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:src="@drawable/ic_person_black"
-                android:background="#FFFFFF"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackground">
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:id="@+id/nameofstudent"
+                android:text="Aman Chauhan"
+                android:gravity="bottom"
+                android:textColor="#000000"
+                android:textSize="22.5sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:id="@+id/nameofstudent"
-                    android:text="Aman Chauhan"
-                    android:gravity="bottom"
-                    android:textColor="#000000"
-                    android:textSize="22.5sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:id="@+id/emailofstudent"
-                    android:text="aman12chauhan@yahoo.co.in"
-                    android:gravity="center_vertical"
-                    android:textColor="#666666"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:id="@+id/emailofstudent"
+                android:text="aman12chauhan@yahoo.co.in"
+                android:gravity="center_vertical"
+                android:textColor="#666666"
+                android:textSize="15sp"/>
 
         </LinearLayout>
 
+    </LinearLayout>
 
-    </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>

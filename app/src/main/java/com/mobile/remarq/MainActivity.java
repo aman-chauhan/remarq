@@ -150,14 +150,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
         if (id == R.id.timelineicon)
         {
+            bundle.putSerializable("courseids",courseids);
             TimelineFragment obj=new TimelineFragment();
             obj.setArguments(bundle);
             ft.replace(R.id.frames, obj);
         }
         else if (id == R.id.profileicon)
         {
+            Bundle profilebundle=new Bundle();
+            profilebundle.putSerializable("student",auth);
             Profile obj=new Profile();
-            obj.setArguments(bundle);
+            obj.setArguments(profilebundle);
             ft.replace(R.id.frames, obj);
         }
         else if (id == R.id.followingstudentsicon)

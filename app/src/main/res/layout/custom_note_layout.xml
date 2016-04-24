@@ -1,63 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        app:cardElevation="@dimen/activity_vertical_margin"
+<android.support.v7.widget.CardView
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginBottom="16dp">
+
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40dp"
-                android:text="Note Content"
-                android:textColor="#000000"
-                android:id="@+id/notecontent_text" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:id="@+id/viewline"
-                />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CourseID"
-                    android:id="@+id/courseid_text" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date"
-                    android:layout_marginLeft="20dp"
-                    android:id="@+id/date_text" />
-
-            </LinearLayout>
-
+                android:text="CourseCode"
+                android:id="@+id/coursecode_text"
+                android:textColor="@color/colorTextSecondary"
+                android:layout_gravity="center_vertical|start"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Note Title"
-                android:textSize="25dp"
-                android:id="@+id/notetitle_text" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Posted By"
-                android:id="@+id/studentname_text" />
+                android:text="Date"
+                android:id="@+id/date_text"
+                android:textColor="@color/colorTextSecondary"
+                android:layout_marginStart="32dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryLight" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note Title"
+            android:textSize="25dp"
+            android:id="@+id/notetitle_text"
+            android:padding="4dp"
+            android:textColor="@color/colorTextPrimary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Posted By"
+            android:id="@+id/studentname_text"
+            android:padding="4dp"
+            android:textColor="@color/colorTextPrimary"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryLight" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:padding="4dp"
+            android:text="Note Content"
+            android:textColor="@color/colorTextSecondary"
+            android:id="@+id/notecontent_text" />
 
 </LinearLayout>
-    </android.support.v7.widget.CardView>
+</android.support.v7.widget.CardView>

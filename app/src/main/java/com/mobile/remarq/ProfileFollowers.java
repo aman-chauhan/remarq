@@ -1,7 +1,7 @@
 package com.mobile.remarq;
 
+
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -28,95 +28,81 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-public class TimelineFragment extends Fragment
+public class ProfileFollowers extends Fragment
 {
-    Student auth;
-    HashMap<String,String> courseids;
+    Student student;
+    private List<Student> students=new ArrayList<>();
+    private StudentAdapter stadapter;
+    private String url="http://remarq-central.890m.com/pull_students_followme.php";
+    private static String TAG = ProfileFollowers.class.getSimpleName();
 
-    private List<NoteData> notes = new ArrayList<>();
-    private NoteViewAdapter noteViewAdapter;
-    private String url="http://remarq-central.890m.com/pull_notes_from_follow.php";
-    private static String TAG = TimelineFragment.class.getSimpleName();
-
-    public TimelineFragment()
-    {
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public ProfileFollowers() {
+        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.fragment_timeline, container, false);
+        final View v=inflater.inflate(R.layout.fragment_profile_followers, container, false);
 
-        auth = (Student) getArguments().getSerializable("auth");
+        student=(Student)getArguments().getSerializable("student");
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
-        noteViewAdapter = new NoteViewAdapter(notes);
-        RecyclerView.LayoutManager mlayoutmanager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mlayoutmanager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+        RecyclerView recyclerview = (RecyclerView) v.findViewById(R.id.studentsfollowMelist);
+        stadapter=new StudentAdapter(students);
+        RecyclerView.LayoutManager mlayoutmanager=new LinearLayoutManager(getActivity());
+        recyclerview.setLayoutManager(mlayoutmanager);
+        recyclerview.setItemAnimator(new DefaultItemAnimator());
+        recyclerview.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerview, new ClickListener() {
             @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(v.getContext(), notes.get(position).getNoteTitle(), Toast.LENGTH_SHORT).show();
+            public void onClick(View view, int position)
+            {
+                Toast.makeText(v.getContext(),students.get(position).getFirst_name(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onLongClick(View view, int position) {
-                Toast.makeText(v.getContext(), notes.get(position).getNoteTitle(), Toast.LENGTH_SHORT).show();
+            public void onLongClick(View view, int position)
+            {
+                Toast.makeText(v.getContext(),students.get(position).getFirst_name(),Toast.LENGTH_SHORT).show();
             }
         }));
-        recyclerView.setAdapter(noteViewAdapter);
+        recyclerview.setAdapter(stadapter);
 
-        prepareNotesList();
+        prepareStudentList();
 
         return v;
     }
 
-    void prepareNotesList()
+    void prepareStudentList()
     {
         Map<String,String> params=new HashMap<String, String>();
-        params.put("studentid",Integer.toString(auth.getStudent_id()));
+        params.put("studentid",Integer.toString(student.getStudent_id()));
 
         CustomRequest request=new CustomRequest(Request.Method.POST, url, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        try{
-                            Log.d(TAG,jsonObject.toString());
+                        try {
+                            Log.d(TAG, jsonObject.toString());
 
                             String success = jsonObject.getString("success");
                             String message = jsonObject.getString("message");
                             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                            if (success.equals("yes"))
-                            {
-                                Toast.makeText(getActivity(), "yes", Toast.LENGTH_LONG).show();
-                                JSONArray array = jsonObject.getJSONArray("notes");
-                                NoteData note;
-                                for (int i = 0; i < array.length(); ++i)
-                                {
+                            if (success.equals("yes")) {
+                                JSONArray array = jsonObject.getJSONArray("students");
+                                Student student;
+                                for (int i = 0; i < array.length(); ++i) {
                                     JSONObject obj = (JSONObject) array.get(i);
-                                    note=new NoteData();
-                                    note.setNoteID(obj.getInt("noteid"));
-                                    note.setPostedBy(obj.getInt("writerid"));
-                                    note.setPostedByName(obj.getString("firstname")+" "+obj.get("lastname"));
-                                    note.setCoursecode(obj.getString("coursecode"));
-                                    note.setDateOfNote(obj.getString("notedate"));
-                                    note.setNoteTitle(obj.getString("notetitle"));
-                                    note.setNoteContent(obj.getString("notecontent"));
-                                    notes.add(note);
-                                    Log.d(TAG,note.getNoteTitle());
+                                    student = new Student();
+                                    student.setFirst_name(obj.getString("firstname"));
+                                    student.setLast_name(obj.getString("lastname"));
+                                    student.setEmail_id(obj.getString("emailid"));
+                                    student.setStudent_id(obj.getInt("studentid"));
+                                    students.add(student);
+                                    Log.d(TAG,student.getFirst_name());
                                 }
-                                noteViewAdapter.notifyDataSetChanged();
+                                stadapter.notifyDataSetChanged();
                             }
-                        }
-                        catch(JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -142,9 +128,9 @@ public class TimelineFragment extends Fragment
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener
     {
         private GestureDetector gestureDetector;
-        private TimelineFragment.ClickListener clickListener;
+        private ProfileFollowers.ClickListener clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final TimelineFragment.ClickListener clickListener)
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ProfileFollowers.ClickListener clickListener)
         {
             this.clickListener=clickListener;
             gestureDetector=new GestureDetector(context, new GestureDetector.SimpleOnGestureListener()
@@ -165,6 +151,7 @@ public class TimelineFragment extends Fragment
             });
         }
 
+
         @Override
         public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
             View child = rv.findChildViewUnder(e.getX(), e.getY());
@@ -183,4 +170,5 @@ public class TimelineFragment extends Fragment
 
         }
     }
+
 }

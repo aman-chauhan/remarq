@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:elevation="40dp"
-        card_view:cardUseCompatPadding="true">
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
