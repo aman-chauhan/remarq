@@ -1,5 +1,6 @@
 package com.mobile.remarq;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,63 +29,63 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProfileFollowing extends Fragment
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ProfileNotes extends Fragment
 {
     Student student;
     Student auth;
-    private List<Student> students=new ArrayList<>();
-    private StudentAdapter stadapter;
-    private String url="http://remarq-central.890m.com/pull_students_ifollow.php";
-    private static String TAG = ProfileFollowing.class.getSimpleName();
+    private List<NoteData> notes = new ArrayList<>();
+    private NoteViewAdapter noteViewAdapter;
+    private String url="http://remarq-central.890m.com/pull_notes.php";
+    private static String TAG = ProfileNotes.class.getSimpleName();
 
-    public ProfileFollowing()
-    {
+    public ProfileNotes() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        final View v=inflater.inflate(R.layout.fragment_profile_following, container, false);
+                             Bundle savedInstanceState) {
+        final View v=inflater.inflate(R.layout.fragment_profile_notes, container, false);
 
         student=(Student)getArguments().getSerializable("student");
         auth=(Student)getArguments().getSerializable("auth");
 
-        RecyclerView recyclerview = (RecyclerView) v.findViewById(R.id.studentsIfollowlist);
-        stadapter=new StudentAdapter(students);
-        RecyclerView.LayoutManager mlayoutmanager=new LinearLayoutManager(getActivity());
-        recyclerview.setLayoutManager(mlayoutmanager);
-        recyclerview.setItemAnimator(new DefaultItemAnimator());
-        recyclerview.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerview, new ClickListener() {
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
+        noteViewAdapter = new NoteViewAdapter(notes);
+        RecyclerView.LayoutManager mlayoutmanager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mlayoutmanager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
-            public void onClick(View view, int position)
-            {
-                Student student=students.get(position);
+            public void onClick(View view, int position) {
+                NoteData note=notes.get(position);
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("auth",auth);
-                bundle.putSerializable("student",student);
-                Profile pf=new Profile();
-                pf.setArguments(bundle);
+                bundle.putSerializable("note",note);
+                ViewNote vn=new ViewNote();
+                vn.setArguments(bundle);
                 FragmentTransaction ft=getFragmentManager().beginTransaction();
-                ft.replace(R.id.frames,pf);
+                ft.replace(R.id.frames,vn);
                 ft.commit();
             }
 
             @Override
-            public void onLongClick(View view, int position)
-            {
-                Toast.makeText(v.getContext(),students.get(position).getFirst_name(),Toast.LENGTH_SHORT).show();
+            public void onLongClick(View view, int position) {
+                Toast.makeText(v.getContext(), notes.get(position).getNoteTitle(), Toast.LENGTH_SHORT).show();
             }
         }));
-        recyclerview.setAdapter(stadapter);
+        recyclerView.setAdapter(noteViewAdapter);
 
-        prepareStudentList();
+        prepareNotesList();
 
         return v;
     }
 
-    void prepareStudentList()
+    void prepareNotesList()
     {
         Map<String,String> params=new HashMap<String, String>();
         params.put("studentid",Integer.toString(student.getStudent_id()));
@@ -93,28 +94,35 @@ public class ProfileFollowing extends Fragment
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        try {
-                            Log.d(TAG, jsonObject.toString());
+                        try{
+                            Log.d(TAG,jsonObject.toString());
 
                             String success = jsonObject.getString("success");
                             String message = jsonObject.getString("message");
                             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                            if (success.equals("yes")) {
-                                JSONArray array = jsonObject.getJSONArray("students");
-                                Student student;
-                                for (int i = 0; i < array.length(); ++i) {
+                            if (success.equals("yes"))
+                            {
+                                Toast.makeText(getActivity(), "yes", Toast.LENGTH_LONG).show();
+                                JSONArray array = jsonObject.getJSONArray("notes");
+                                NoteData note;
+                                for (int i = 0; i < array.length(); ++i)
+                                {
                                     JSONObject obj = (JSONObject) array.get(i);
-                                    student = new Student();
-                                    student.setFirst_name(obj.getString("firstname"));
-                                    student.setLast_name(obj.getString("lastname"));
-                                    student.setEmail_id(obj.getString("emailid"));
-                                    student.setStudent_id(obj.getInt("studentid"));
-                                    students.add(student);
-                                    Log.d(TAG,student.getFirst_name());
+                                    note=new NoteData();
+                                    note.setNoteID(obj.getInt("noteid"));
+                                    note.setPostedBy(obj.getInt("writerid"));
+                                    note.setPostedByName(obj.getString("firstname")+" "+obj.get("lastname"));
+                                    note.setCoursecode(obj.getString("coursecode"));
+                                    note.setDateOfNote(obj.getString("notedate"));
+                                    note.setNoteTitle(obj.getString("notetitle"));
+                                    note.setNoteContent(obj.getString("notecontent"));
+                                    notes.add(note);
+                                    Log.d(TAG,note.getNoteTitle());
                                 }
-                                stadapter.notifyDataSetChanged();
+                                noteViewAdapter.notifyDataSetChanged();
                             }
-                        } catch (JSONException e) {
+                        }
+                        catch(JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -140,9 +148,9 @@ public class ProfileFollowing extends Fragment
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener
     {
         private GestureDetector gestureDetector;
-        private ProfileFollowing.ClickListener clickListener;
+        private ProfileNotes.ClickListener clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ProfileFollowing.ClickListener clickListener)
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ProfileNotes.ClickListener clickListener)
         {
             this.clickListener=clickListener;
             gestureDetector=new GestureDetector(context, new GestureDetector.SimpleOnGestureListener()
@@ -162,7 +170,6 @@ public class ProfileFollowing extends Fragment
                 }
             });
         }
-
 
         @Override
         public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {

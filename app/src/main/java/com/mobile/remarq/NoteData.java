@@ -1,9 +1,11 @@
 package com.mobile.remarq;
 
+import java.io.Serializable;
+
 /**
  * Created by Jenis_000 on 4/24/2016.
  */
-public class NoteData
+public class NoteData implements Serializable
 {
     private int noteID;
     private String noteTitle;

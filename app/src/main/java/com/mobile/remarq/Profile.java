@@ -29,8 +29,10 @@ public class Profile extends Fragment
     TabLayout tabLayout;
 
     Student student;
+    Student auth;
     HashMap<String,String> courseids;
     Bundle bundle=new Bundle();
+    ProfileNotes notes=new ProfileNotes();
     ProfileCourses courses=new ProfileCourses();
     ProfileFollowing following=new ProfileFollowing();
     ProfileFollowers followers=new ProfileFollowers();
@@ -47,7 +49,7 @@ public class Profile extends Fragment
     {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFragment(new Stub(), "Notes");
+        adapter.addFragment(notes, "Notes");
         adapter.addFragment(courses, "Courses");
         adapter.addFragment(following, "Following");
         adapter.addFragment(followers, "Followers");
@@ -66,8 +68,11 @@ public class Profile extends Fragment
         View v=inflater.inflate(R.layout.fragment_profile, container, false);
 
         student=(Student)getArguments().getSerializable("student");
+        auth=(Student)getArguments().getSerializable("auth");
         courseids=(HashMap<String, String>)getArguments().getSerializable("courseids");
         bundle.putSerializable("student",student);
+        bundle.putSerializable("auth",auth);
+        notes.setArguments(bundle);
         courses.setArguments(bundle);
         following.setArguments(bundle);
         followers.setArguments(bundle);
@@ -80,7 +85,6 @@ public class Profile extends Fragment
 
         viewPager =(ViewPager)v.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(3);
 
         tabLayout =(TabLayout)v.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);

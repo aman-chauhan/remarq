@@ -4,6 +4,7 @@ package com.mobile.remarq;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class ProfileFollowers extends Fragment
 {
     Student student;
+    Student auth;
     private List<Student> students=new ArrayList<>();
     private StudentAdapter stadapter;
     private String url="http://remarq-central.890m.com/pull_students_followme.php";
@@ -46,6 +48,7 @@ public class ProfileFollowers extends Fragment
         final View v=inflater.inflate(R.layout.fragment_profile_followers, container, false);
 
         student=(Student)getArguments().getSerializable("student");
+        auth=(Student)getArguments().getSerializable("auth");
 
         RecyclerView recyclerview = (RecyclerView) v.findViewById(R.id.studentsfollowMelist);
         stadapter=new StudentAdapter(students);
@@ -56,7 +59,15 @@ public class ProfileFollowers extends Fragment
             @Override
             public void onClick(View view, int position)
             {
-                Toast.makeText(v.getContext(),students.get(position).getFirst_name(),Toast.LENGTH_SHORT).show();
+                Student student=students.get(position);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("auth",auth);
+                bundle.putSerializable("student",student);
+                Profile pf=new Profile();
+                pf.setArguments(bundle);
+                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                ft.replace(R.id.frames,pf);
+                ft.commit();
             }
 
             @Override
@@ -137,7 +148,7 @@ public class ProfileFollowers extends Fragment
             {
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
-                    return super.onSingleTapUp(e);
+                    return true;
                 }
 
                 @Override

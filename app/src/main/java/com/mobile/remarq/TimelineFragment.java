@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +33,6 @@ import java.util.Map;
 public class TimelineFragment extends Fragment
 {
     Student auth;
-    HashMap<String,String> courseids;
 
     private List<NoteData> notes = new ArrayList<>();
     private NoteViewAdapter noteViewAdapter;
@@ -63,8 +63,17 @@ public class TimelineFragment extends Fragment
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(v.getContext(), notes.get(position).getNoteTitle(), Toast.LENGTH_SHORT).show();
+            public void onClick(View view, int position)
+            {
+                NoteData note=notes.get(position);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("auth",auth);
+                bundle.putSerializable("note",note);
+                ViewNote vn=new ViewNote();
+                vn.setArguments(bundle);
+                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                ft.replace(R.id.frames,vn);
+                ft.commit();
             }
 
             @Override
@@ -151,7 +160,7 @@ public class TimelineFragment extends Fragment
             {
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
-                    return super.onSingleTapUp(e);
+                    return true;
                 }
 
                 @Override

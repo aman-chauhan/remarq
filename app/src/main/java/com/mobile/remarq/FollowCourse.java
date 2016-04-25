@@ -4,6 +4,7 @@ package com.mobile.remarq;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,7 +64,15 @@ public class FollowCourse extends Fragment
             @Override
             public void onClick(View view, int position)
             {
-                Toast.makeText(v.getContext(),courses.get(position).getCourse_name(),Toast.LENGTH_SHORT).show();
+                Course course=courses.get(position);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("auth",auth);
+                bundle.putSerializable("course",course);
+                CourseProfile cp=new CourseProfile();
+                cp.setArguments(bundle);
+                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                ft.replace(R.id.frames,cp);
+                ft.commit();
             }
 
             @Override
@@ -146,7 +155,7 @@ public class FollowCourse extends Fragment
             {
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
-                    return super.onSingleTapUp(e);
+                    return true;
                 }
 
                 @Override
@@ -169,7 +178,8 @@ public class FollowCourse extends Fragment
         }
 
         @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        public void onTouchEvent(RecyclerView rv, MotionEvent e)
+        {
 
         }
 

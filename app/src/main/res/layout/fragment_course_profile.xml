@@ -1,10 +1,9 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.mobile.remarq.Profile"
+    tools:context="com.mobile.remarq.CourseProfile"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,9 +16,8 @@
         <ImageView
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/ic_person_black"
-            android:tint="@color/colorAccent"
-            android:id="@+id/profile_image" />
+            android:src="@drawable/ic_dashboard_black"
+            android:tint="@color/colorAccent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +31,7 @@
                 android:text="Name"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorAccent"
-                android:id="@+id/studentName"
+                android:id="@+id/courseCode"
                 android:textSize="20dp"/>
 
             <TextView
@@ -42,7 +40,7 @@
                 android:layout_weight="2"
                 android:text="Email"
                 android:gravity="top"
-                android:id="@+id/studentEmail"
+                android:id="@+id/courseName"
                 android:textSize="15dp"
                 android:textColor="@color/colorTextSecondary" />
 
@@ -50,21 +48,11 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tablayout"
-        app:tabMode="fixed"
-        app:tabGravity="center"
-        android:background="#FFFFFF">
-
-    </android.support.design.widget.TabLayout>
-
-    <android.support.v4.view.ViewPager
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/viewpager"
-        tools:ignore="NotSibling"
-        android:background="#FFFFFF">
-    </android.support.v4.view.ViewPager>
+        android:background="@color/colorPrimaryLight"/>
+
 </LinearLayout>
