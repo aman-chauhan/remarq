@@ -85,6 +85,12 @@ public class ProfileNotes extends Fragment
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        notes.clear();
+    }
+
     void prepareNotesList()
     {
         Map<String,String> params=new HashMap<String, String>();

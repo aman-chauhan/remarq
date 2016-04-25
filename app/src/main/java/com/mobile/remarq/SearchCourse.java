@@ -16,44 +16,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileCourses extends Fragment {
+public class SearchCourse extends Fragment
+{
 
-    Student student;
     Student auth;
     private List<Course> courses=new ArrayList<>();
     private CourseAdapter coadapter;
-    private String url="http://remarq-central.890m.com/pull_courses_ifollow.php";
-    private static String TAG = ProfileCourses.class.getSimpleName();
 
-    public ProfileCourses() {
+    public SearchCourse() {
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        final View v=inflater.inflate(R.layout.fragment_profile_courses, container, false);
+                             Bundle savedInstanceState)
+    {
+        final View v=inflater.inflate(R.layout.fragment_search_course, container, false);
 
-        student=(Student)getArguments().getSerializable("student");
         auth=(Student)getArguments().getSerializable("auth");
+
+        SerializedList sl=(SerializedList)getArguments().getSerializable("courselist");
+
+
         RecyclerView recyclerview = (RecyclerView) v.findViewById(R.id.coursesIfollowlist);
         coadapter=new CourseAdapter(courses);
         RecyclerView.LayoutManager mlayoutmanager=new LinearLayoutManager(getActivity());
@@ -82,64 +74,16 @@ public class ProfileCourses extends Fragment {
         }));
         recyclerview.setAdapter(coadapter);
 
-        prepareCourseList();
-
+        if(sl!=null)
+        {
+            courses=sl.getList();
+            coadapter.notifyDataSetChanged();
+        }
+        else
+        {
+            Log.d("SerializedList","error in serialized object in course");
+        }
         return v;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        courses.clear();
-    }
-
-    void prepareCourseList()
-    {
-        Map<String,String> params=new HashMap<String, String>();
-        params.put("studentid",Integer.toString(student.getStudent_id()));
-
-        CustomRequest request=new CustomRequest(Request.Method.POST, url, params,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        try{
-                            Log.d(TAG,jsonObject.toString());
-
-                            String success = jsonObject.getString("success");
-                            String message = jsonObject.getString("message");
-                            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                            if (success.equals("yes"))
-                            {
-                                JSONArray array = jsonObject.getJSONArray("courses");
-                                Course course;
-                                for (int i = 0; i < array.length(); ++i)
-                                {
-                                    JSONObject obj = (JSONObject) array.get(i);
-                                    course=new Course();
-                                    course.setCourse_id(obj.getInt("courseid"));
-                                    course.setCourse_code(obj.getString("coursecode"));
-                                    course.setCourse_name(obj.getString("coursename"));
-                                    courses.add(course);
-                                    Log.d(TAG,course.getCourse_name());
-                                }
-                                coadapter.notifyDataSetChanged();
-                            }
-                        }
-                        catch(JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError)
-                    {
-                        Toast.makeText(getActivity(),
-                                volleyError.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        AppController.getInstance().addToRequestQueue(request);
     }
 
     public interface ClickListener {
@@ -151,9 +95,9 @@ public class ProfileCourses extends Fragment {
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener
     {
         private GestureDetector gestureDetector;
-        private ProfileCourses.ClickListener clickListener;
+        private SearchCourse.ClickListener clickListener;
 
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ProfileCourses.ClickListener clickListener)
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final SearchCourse.ClickListener clickListener)
         {
             this.clickListener=clickListener;
             gestureDetector=new GestureDetector(context, new GestureDetector.SimpleOnGestureListener()

@@ -128,7 +128,8 @@
                     android:id="@+id/password_input"
                     android:hint="Enter Password"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
 

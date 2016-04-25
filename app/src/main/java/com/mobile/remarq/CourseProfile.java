@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -75,7 +76,15 @@ public class CourseProfile extends Fragment
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(v.getContext(), notes.get(position).getNoteTitle(), Toast.LENGTH_SHORT).show();
+                NoteData note=notes.get(position);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("auth",auth);
+                bundle.putSerializable("note",note);
+                ViewNote vn=new ViewNote();
+                vn.setArguments(bundle);
+                FragmentTransaction ft=getFragmentManager().beginTransaction();
+                ft.replace(R.id.frames,vn);
+                ft.commit();
             }
 
             @Override
@@ -162,7 +171,7 @@ public class CourseProfile extends Fragment
             {
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
-                    return super.onSingleTapUp(e);
+                    return true;
                 }
 
                 @Override

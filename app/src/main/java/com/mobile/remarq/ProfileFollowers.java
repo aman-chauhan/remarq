@@ -83,6 +83,12 @@ public class ProfileFollowers extends Fragment
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        students.clear();
+    }
+
     void prepareStudentList()
     {
         Map<String,String> params=new HashMap<String, String>();

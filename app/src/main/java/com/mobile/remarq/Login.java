@@ -36,15 +36,15 @@ public class Login extends AppCompatActivity
         f.replace(R.id.loginframes, new Splash());
         f.commit();
 
-        /*new Handler().postDelayed(new Runnable()
+        new Handler().postDelayed(new Runnable()
         {
             @Override
             public void run()
             {
-
+                new LoadData().execute();
             }
-        },3000);*/
-        new LoadData().execute();
+        },3000);
+
     }
 
     private class LoadData extends AsyncTask<String, Integer, String>

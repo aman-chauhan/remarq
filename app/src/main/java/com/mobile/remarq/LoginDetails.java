@@ -125,6 +125,7 @@ public class LoginDetails extends Fragment
             public void onClick(View v)
             {
                 FragmentTransaction f=getFragmentManager().beginTransaction();
+                f.addToBackStack(null);
                 f.replace(R.id.loginframes,new SignUpDetails());
                 f.commit();
             }

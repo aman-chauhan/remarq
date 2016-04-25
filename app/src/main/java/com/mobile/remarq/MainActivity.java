@@ -89,10 +89,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         builder.setMessage("Search").setPositiveButton("Ok",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton){
                 String searchquery = edt.getText().toString();
-                Toast.makeText(MainActivity.this,searchquery,Toast.LENGTH_SHORT).show();
+                Bundle bundle=new Bundle();
+                bundle.putString("searchterm",searchquery);
+                bundle.putSerializable("auth",auth);
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction ft=manager.beginTransaction();
                 SearchFragment s=new SearchFragment();
+                s.setArguments(bundle);
                 ft.replace(R.id.frames,s,"Search");
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.commit();
@@ -159,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             Bundle profilebundle=new Bundle();
             profilebundle.putSerializable("student",auth);
+            profilebundle.putSerializable("auth",auth);
             Profile obj=new Profile();
             obj.setArguments(profilebundle);
             ft.replace(R.id.frames, obj);

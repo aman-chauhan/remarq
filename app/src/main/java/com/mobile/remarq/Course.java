@@ -1,5 +1,7 @@
 package com.mobile.remarq;
 
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
